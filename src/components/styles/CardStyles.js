@@ -1,4 +1,5 @@
 import {Dimensions, Platform, StyleSheet} from 'react-native';
+import ApplicationStyles from '../../themes/ApplicationStyles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -11,27 +12,14 @@ export default styles = StyleSheet.create({
   flipCard: {
     flex: 1,
     width: width * 0.3 - 10,
-    height: height * 0.2,
+    height: height * 0.2 - 10,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#5c75ed',
     backfaceVisibility: 'hidden',
     margin: 5,
     borderRadius: 10,
-    borderColor: 'gray',
-    borderWidth: 1,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 2.84,
-      },
-      android: {elevation: 3},
-    }),
+    ...ApplicationStyles.elevationCardStyle,
   },
   flipCardBack: {
     flex: 1,
@@ -49,5 +37,6 @@ export default styles = StyleSheet.create({
     fontSize: 50,
     color: 'white',
     fontWeight: 'bold',
+    fontStyle: 'italic',
   },
 });

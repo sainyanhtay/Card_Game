@@ -1,24 +1,22 @@
 import {createSlice} from '@reduxjs/toolkit';
+import helper from '../utils/helper';
 
 export const challengeSlice = createSlice({
   name: 'challenge',
   initialState: {
-    random_numbers: [],
+    CARD_PAIRS_VALUE: [],
   },
   reducers: {
     generateRandomNumbers: (state, action) => {
-      let arr = [];
-      while (arr.length < 6) {
-        var r = Math.floor(Math.random() * 100) + 1;
-        if (arr.indexOf(r) === -1) arr.push(r);
-      }
-      state.random_numbers = [...arr, ...arr];
+      let pairNumbers = helper.generatePairNumbers(6);
+
+      state.CARD_PAIRS_VALUE = helper.shuffle(pairNumbers);
     },
   },
 });
 
 export const {generateRandomNumbers} = challengeSlice.actions;
 
-export const selectchallenges = state => state.random_numbers;
+export const selectchallenges = state => state.CARD_PAIRS_VALUE;
 
 export default challengeSlice.reducer;

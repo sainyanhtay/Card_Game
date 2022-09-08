@@ -5,7 +5,7 @@ import {generateRandomNumbers} from '../redux/challengeSlice';
 import styles from './styles/ChallengeStyles';
 import Card from '../components/Card';
 
-const ChallengeApp = ({random_numbers, generateRandomNumbers, ...props}) => {
+const ChallengeApp = ({CARD_PAIRS_VALUE, generateRandomNumbers, ...props}) => {
   useEffect(() => {
     generateRandomNumbers();
   }, []);
@@ -13,7 +13,7 @@ const ChallengeApp = ({random_numbers, generateRandomNumbers, ...props}) => {
   const renderItem = ({item, index}) => {
     return (
       <View key={index} style={styles.flatListItem}>
-        <Card />
+        <Card number={item} />
       </View>
     );
   };
@@ -33,7 +33,7 @@ const ChallengeApp = ({random_numbers, generateRandomNumbers, ...props}) => {
       <View style={styles.cardContainer}>
         <FlatList
           numColumns={3}
-          data={random_numbers}
+          data={CARD_PAIRS_VALUE}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
           contentContainerStyle={styles.flatList}
@@ -45,7 +45,7 @@ const ChallengeApp = ({random_numbers, generateRandomNumbers, ...props}) => {
 
 const mapStateToProps = (state, myOwnProps) => {
   return {
-    random_numbers: state.challenge.random_numbers,
+    CARD_PAIRS_VALUE: state.challenge.CARD_PAIRS_VALUE,
   };
 };
 

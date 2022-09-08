@@ -3,7 +3,7 @@ import {Text, View, TouchableOpacity, Animated, Image} from 'react-native';
 import Images from '../assets/images';
 import styles from './styles/CardStyles';
 
-const Card = ({}) => {
+const Card = ({number}) => {
   const animatedValue = new Animated.Value(0);
   const frontInterpolate = animatedValue.interpolate({
     inputRange: [0, 180],
@@ -74,7 +74,7 @@ const Card = ({}) => {
             backAnimatedStyle,
             {opacity: backOpacity},
           ]}>
-          <Text style={styles.flipText}>999</Text>
+          <Text style={styles.flipText}>{number}</Text>
         </Animated.View>
       </TouchableOpacity>
     </View>
