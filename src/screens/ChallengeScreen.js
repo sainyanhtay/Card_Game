@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text, View, TouchableOpacity, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {generateRandomNumbers} from '../redux/challengeSlice';
@@ -6,6 +6,10 @@ import styles from './styles/ChallengeStyles';
 import Card from '../components/Card';
 
 const ChallengeApp = ({CARD_PAIRS_VALUE, generateRandomNumbers, ...props}) => {
+  const cardRef = {};
+  CARD_PAIRS_VALUE?.forEach((value, index) => {
+    cardRef[index] = useRef();
+  });
   useEffect(() => {
     generateRandomNumbers();
   }, []);
@@ -13,7 +17,11 @@ const ChallengeApp = ({CARD_PAIRS_VALUE, generateRandomNumbers, ...props}) => {
   const renderItem = ({item, index}) => {
     return (
       <View key={index} style={styles.flatListItem}>
-        <Card number={item} />
+        <Card
+          ref={cardRef[index]}
+          number={item}
+          onPress={() => cardRef[index].current.flipCard()}
+        />
       </View>
     );
   };

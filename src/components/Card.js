@@ -1,10 +1,35 @@
-import React from 'react';
+import React, {forwardRef, useImperativeHandle, useRef} from 'react';
 import {Text, View, TouchableOpacity, Animated, Image} from 'react-native';
 import Images from '../assets/images';
 import styles from './styles/CardStyles';
 
-const Card = ({number}) => {
-  const animatedValue = new Animated.Value(0);
+export default forwardRef(({number, onPress}, ref) => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      flipCard: () => {
+        if (currentValue >= 90) {
+          Animated.spring(animatedValue, {
+            toValue: 0,
+            friction: 8,
+            tension: 10,
+            useNativeDriver: true,
+          }).start();
+        } else {
+          Animated.spring(animatedValue, {
+            toValue: 180,
+            friction: 8,
+            tension: 10,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    }),
+    [],
+  );
+
   const frontInterpolate = animatedValue.interpolate({
     inputRange: [0, 180],
     outputRange: ['0deg', '180deg'],
@@ -34,27 +59,9 @@ const Card = ({number}) => {
     currentValue = value;
   });
 
-  const flipCard = () => {
-    if (currentValue >= 90) {
-      Animated.spring(animatedValue, {
-        toValue: 0,
-        friction: 8,
-        tension: 10,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.spring(animatedValue, {
-        toValue: 180,
-        friction: 8,
-        tension: 10,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={flipCard}>
+      <TouchableOpacity onPress={onPress}>
         <Animated.View
           style={[
             styles.flipCard,
@@ -79,6 +86,4 @@ const Card = ({number}) => {
       </TouchableOpacity>
     </View>
   );
-};
-
-export default Card;
+});
