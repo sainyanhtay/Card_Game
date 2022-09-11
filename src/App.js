@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import {store} from './redux';
 import ChallengeScreen from './screens/ChallengeScreen';

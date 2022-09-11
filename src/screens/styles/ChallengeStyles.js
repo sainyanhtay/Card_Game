@@ -21,6 +21,7 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     ...ApplicationStyles.elevationCardStyle,
   },
+  text: {color: 'black'},
   flatList: {},
   flatListItem: {},
 });
